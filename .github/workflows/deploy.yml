@@ -1,0 +1,72 @@
+name: Drupal Infrastructure CI/CD
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Validate Terraform
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Terraform format check
+        run: terraform fmt -check -recursive
+        working-directory: terraform
+
+      - name: Terraform validate
+        run: |
+          terraform init -backend=false
+          terraform validate
+        working-directory: terraform
+
+  deploy-staging:
+    name: Deploy to staging
+    needs: validate
+    runs-on: ubuntu-latest
+    environment: staging
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Staging deployment placeholder
+        run: |
+          echo "Configure staging deployment here."
+          echo "No AWS infrastructure changes are made by this step."
+
+      - name: Smoke test staging
+        env:
+          STAGING_URL: ${{ vars.STAGING_URL }}
+        run: |
+          if [ -z "$STAGING_URL" ]; then
+            echo "Set STAGING_URL in GitHub staging environment variables."
+            exit 1
+          fi
+          curl --fail --show-error --silent \
+            --retry 5 --retry-delay 10 \
+            "$STAGING_URL"
+
+  deploy-production:
+    name: Deploy to production
+    needs: deploy-staging
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Production deployment placeholder
+        run: |
+          echo "Configure production deployment here."
+          echo "No AWS infrastructure changes are made by this step."
