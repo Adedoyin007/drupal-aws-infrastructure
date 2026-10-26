@@ -1,0 +1,18 @@
+
+PLAY [Verify Drupal deployment on AWS EC2] *************************************
+
+TASK [Check Apache service] ****************************************************
+ok: [drupal-app]
+
+TASK [Check Drupal application file] *******************************************
+ok: [drupal-app]
+
+TASK [Check Drupal database settings file] *************************************
+ok: [drupal-app]
+
+TASK [Check Drupal HTTP response] **********************************************
+ok: [drupal-app]
+
+PLAY RECAP *********************************************************************
+drupal-app                 : ok=4    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+

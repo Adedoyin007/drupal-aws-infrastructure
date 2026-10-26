@@ -1,0 +1,23 @@
+services:
+  drupal:
+    build: .
+    ports:
+      - "8080:80"
+    volumes:
+      - drupal_data:/var/www/html
+    depends_on:
+      - database
+
+  database:
+    image: mysql:8.0
+    environment:
+      MYSQL_DATABASE: drupal
+      MYSQL_USER: drupaluser
+      MYSQL_PASSWORD: localDrupalPass2026
+      MYSQL_ROOT_PASSWORD: localRootPass2026
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  drupal_data:
+  db_data:

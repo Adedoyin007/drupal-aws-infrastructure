@@ -1,0 +1,8 @@
+---
+- name: Test Drupal server connection
+  hosts: drupal
+  gather_facts: false
+  tasks:
+    - name: Check Apache
+      ansible.builtin.raw: "sudo -n systemctl is-active apache2"
+      changed_when: false

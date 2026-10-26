@@ -1,0 +1,21 @@
+---
+- name: Verify Drupal deployment on AWS EC2
+  hosts: drupal
+  gather_facts: false
+
+  tasks:
+    - name: Check Apache service
+      ansible.builtin.raw: "sudo -n systemctl is-active apache2"
+      changed_when: false
+
+    - name: Check Drupal application file
+      ansible.builtin.raw: "test -f /var/www/html/index.php && echo Drupal_file_OK"
+      changed_when: false
+
+    - name: Check Drupal database settings file
+      ansible.builtin.raw: "test -f /var/www/html/sites/default/settings.php && echo Settings_file_OK"
+      changed_when: false
+
+    - name: Check Drupal HTTP response
+      ansible.builtin.raw: "curl --max-time 5 -s -o /dev/null -w '%{http_code}' http://localhost"
+      changed_when: false
