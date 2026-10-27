@@ -320,3 +320,17 @@ Drupal deployment, monitoring dashboards, and resilience tests.
 ### Cpu Load Test
 
 ![Cpu Load Test](screenshots/10-cpu-load-test.png)
+
+## CI/CD Pipeline — GitHub Actions
+
+The project includes a GitHub Actions workflow defined in
+`.github/workflows/deploy.yml` to automate CI/CD validation and deployment checks.
+
+The workflow is maintained in the repository and can be reviewed under the
+**Actions** tab on GitHub. Workflow results help verify whether the configured
+jobs complete successfully.
+
+### CI/CD Workflow Evidence
+
+![GitHub Actions CI/CD workflow](screenshots/11-github-actions-cicd.png)
+
